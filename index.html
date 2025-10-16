@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Personal App</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Personal App">
+    <link rel="apple-touch-icon" href="icon.png">
+    <link rel="icon" href="icon.png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- SIDEBAR -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>Menu</h2>
+            <button class="close-sidebar-btn" id="close-sidebar-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <nav class="sidebar-nav">
+            <button class="sidebar-item" data-sidebar-section="dashboard-section">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="14" width="7" height="7"></rect>
+                    <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                Dashboard
+            </button>
+            <button class="sidebar-item" data-sidebar-section="workspace-section">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                </svg>
+                Workspace
+            </button>
+            <button class="sidebar-item" data-sidebar-section="upcoming-section">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                Upcoming
+            </button>
+            <button class="sidebar-item" data-sidebar-section="notes-section">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                Notes
+            </button>
+            <button class="sidebar-item" data-sidebar-section="motivation-section">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                    <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>
+                Motivation
+            </button>
+        </nav>
+    </div>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <div class="app-container">
+        <!-- TOAST NOTIFICATION -->
+        <div class="toast" id="toast"></div>
+
+        <div class="content" id="content">
+            <!-- DASHBOARD SECTION -->
+            <section class="section active" id="dashboard-section">
+                <div class="section-header">
+                    <button class="hamburger-btn" id="hamburger-btn-dashboard">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                    <h1 class="section-title">Dashboard</h1>
+                    <div class="header-spacer"></div>
+                </div>
+                <div class="dashboard-content">
+                    <div class="calendar-scroll">
+                        <div class="days-container" id="dashboard-days-container"></div>
+                    </div>
+                    
+                    <div class="dashboard-card">
+                        <h2>Calendar</h2>
+                        <div id="dashboard-calendar"></div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h2>Health</h2>
+                        <div id="dashboard-health"></div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h2>Money</h2>
+                        <div id="dashboard-money"></div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h2>Goals</h2>
+                        <div id="dashboard-goals"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- UPCOMING SECTION -->
+            <section class="section" id="upcoming-section">
+                <div class="section-header">
+                    <button class="hamburger-btn" id="hamburger-btn-upcoming">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                    <h1 class="section-title">Upcoming</h1>
+                    <div class="header-spacer"></div>
+                </div>
+                <div class="dashboard-content">
+                    <div id="upcoming-events"></div>
+                </div>
+            </section>
+
+            <!-- NOTES SECTION -->
+            <section class="section" id="notes-section">
+                <div class="section-header">
+                    <button class="hamburger-btn" id="hamburger-btn-notes">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                    <h1 class="section-title">Notes</h1>
+                    <button class="icon-btn" id="add-note-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="notes-list" id="notes-list"></div>
+            </section>
+
+            <!-- MOTIVATION SECTION -->
+            <section class="section" id="motivation-section">
+                <div class="section-header">
+                    <button class="hamburger-btn" id="hamburger-btn-motivation">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                    <h1 class="section-title">Motivation</h1>
+                    <button class="icon-btn" id="add-photo-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="photo-gallery" id="photo-gallery"></div>
+                <input type="file" id="photo-input" accept="image/*" multiple style="display: none;">
+            </section>
+
+            <!-- WORKSPACE SECTION (Original 5 sections) -->
+            <section class="section" id="workspace-section">
+                <!-- CALENDAR SECTION -->
+                <div class="subsection active" id="calendar-section">
+                    <div class="section-header">
+                        <button class="hamburger-btn" id="hamburger-btn-calendar">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="3" y1="12" x2="21" y2="12"></line>
+                                <line x1="3" y1="6" x2="21" y2="6"></line>
+                                <line x1="3" y1="18" x2="21" y2="18"></line>
+                            </svg>
+                        </button>
+                        <h1 class="section-title">Calendar</h1>
+                        <div class="header-spacer"></div>
+                    </div>
+                    <div class="calendar-scroll">
+                        <div class="days-container" id="days-container"></div>
+                    </div>
+                    <div class="events-container" id="events-container"></div>
+                </div>
+
+                <!-- HEALTH SECTION -->
+                <div class="subsection" id="health-section">
+                    <div class="section-header">
+                        <button class="hamburger-btn" id="hamburger-btn-health">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="3" y1="12" x2="21" y2="12"></line>
+                                <line x1="3" y1="6" x2="21" y2="6"></line>
+                                <line x1="3" y1="18" x2="21" y2="18"></line>
+                            </svg>
+                        </button>
+                        <h1 class="section-title">Health</h1>
+                        <button class="icon-btn" id="health-settings-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="weight-progress-card">
+                        <div class="progress-info">
+                            <span class="progress-label">Weight Goal Progress</span>
+                            <span class="progress-value" id="weight-progress-text">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="weight-progress"></div>
+                        </div>
+                    </div>
+                    <div class="calendar-scroll">
+                        <div class="days-container" id="health-days-container"></div>
+                    </div>
+                    <div class="macros-card">
+                        <h3 class="card-title">Today's Macros</h3>
+                        <div class="macros-grid">
+                            <div class="macro-item">
+                                <span class="macro-label">Protein</span>
+                                <span class="macro-value" id="protein-left">0g</span>
+                            </div>
+                            <div class="macro-item">
+                                <span class="macro-label">Carbs</span>
+                                <span class="macro-value" id="carbs-left">0g</span>
+                            </div>
+                            <div class="macro-item">
+                                <span class="macro-label">Fat</span>
+                                <span class="macro-value" id="fat-left">0g</span>
+                            </div>
+                            <div class="macro-item">
+                                <span class="macro-label">Sugar</span>
+                                <span class="macro-value" id="sugar-left">0g</span>
+                            </div>
+                            <div class="macro-item">
+                                <span class="macro-label">Sat Fat</span>
+                                <span class="macro-value" id="satfat-left">0g</span>
+                            </div>
+                            <div class="macro-item">
+                                <span class="macro-label">Calories</span>
+                                <span class="macro-value" id="calories-left">0</span>
+                            </div>
+                            <div class="macro-item highlight">
+                                <span class="macro-label">Burned</span>
+                                <span class="macro-value" id="calories-burned">0</span>
+                            </div>
+                            <div class="macro-item weight-input">
+                                <span class="macro-label">Today's Weight</span>
+                                <input type="number" id="daily-weight-input" class="weight-input-field" placeholder="kg" step="0.1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="action-btn primary" id="meal-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                            </svg>
+                            Add Meal
+                        </button>
+                        <button class="action-btn secondary" id="exercise-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="16"></line>
+                                <line x1="8" y1="12" x2="16" y2="12"></line>
+                            </svg>
+                            Add Exercise
+                        </button>
+                    </div>
+                    <div class="logs-container">
+                        <div class="log-section">
+                            <h3 class="log-title">Meals</h3>
+                            <div class="log-list" id="meal-list"></div>
+                        </div>
+                        <div class="log-section">
+                            <h3 class="log-title">Exercises</h3>
+                            <div class="log-list" id="exercise-list"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ACCOUNTING SECTION -->
+                <div class="subsection" id="accounting-section">
+                    <div class="section-header">
+                        <button class="hamburger-btn" id="hamburger-btn-accounting">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="3" y1="12" x2="21" y2="12"></line>
+                                <line x1="3" y1="6" x2="21" y2="6"></line>
+                                <line x1="3" y1="18" x2="21" y2="18"></line>
+                            </svg>
+                        </button>
+                        <h1 class="section-title">Money</h1>
+                        <div class="header-spacer"></div>
+                    </div>
+                    <div class="month-selector">
+                        <button class="month-nav-btn" id="prev-month">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="15 18 9 12 15 6"></polyline>
+                            </svg>
+                        </button>
+                        <span class="month-label" id="current-month">Oct 2025</span>
+                        <button class="month-nav-btn" id="next-month">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="summary-cards">
+                        <div class="summary-card">
+                            <span class="summary-label">Income</span>
+                            <span class="summary-amount income" id="income-value">$0.00</span>
+                        </div>
+                        <div class="summary-card">
+                            <span class="summary-label">Expense</span>
+                            <span class="summary-amount expense" id="expense-value">$0.00</span>
+                        </div>
+                        <div class="summary-card">
+                            <span class="summary-label">Balance</span>
+                            <span class="summary-amount" id="balance-value">$0.00</span>
+                        </div>
+                    </div>
+                    <div class="summary-cards">
+                        <div class="summary-card">
+                            <span class="summary-label">Cash</span>
+                            <span class="summary-amount" id="cash-value">$0.00</span>
+                        </div>
+                        <div class="summary-card">
+                            <span class="summary-label">Debit Card</span>
+                            <span class="summary-amount" id="debit-value">$0.00</span>
+                        </div>
+                        <div class="summary-card">
+                            <span class="summary-label">Debt</span>
+                            <span class="summary-amount" id="debt-value">$0.00</span>
+                        </div>
+                    </div>
+                    <div class="accounting-entries" id="accounting-entries"></div>
+                    <button class="fab" id="add-entry-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- ENTRIES SECTION -->
+                <div class="subsection" id="entries-section">
+                    <div class="section-header">
+                        <button class="hamburger-btn" id="hamburger-btn-entries">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="3" y1="12" x2="21" y2="12"></line>
+                                <line x1="3" y1="6" x2="21" y2="6"></line>
+                                <line x1="3" y1="18" x2="21" y2="18"></line>
+                            </svg>
+                        </button>
+                        <h1 class="section-title">Entries</h1>
+                        <div class="header-spacer"></div>
+                    </div>
+                    
+                    <div class="entries-tabs">
+                        <button class="entries-tab active" data-tab="reminder">Reminder</button>
+                        <button class="entries-tab" data-tab="task">Task</button>
+                        <button class="entries-tab" data-tab="chore">Chore</button>
+                    </div>
+
+                    <div class="entries-form-container">
+                        <div class="entries-form active" id="reminder-form">
+                            <div class="form-group">
+                                <label>Date</label>
+                                <input type="date" id="reminder-date-inline">
+                            </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                <input type="text" id="reminder-description-inline" placeholder="What do you need to remember?">
+                            </div>
+                            <div class="form-group">
+                                <label>Time (Optional)</label>
+                                <input type="time" id="reminder-time-inline">
+                            </div>
+                            <button class="btn primary" onclick="saveInlineEntry('reminder')">Add Reminder</button>
+                        </div>
+
+                        <div class="entries-form" id="task-form">
+                            <div class="form-group">
+                                <label>Date</label>
+                                <input type="date" id="task-date-inline">
+                            </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                <input type="text" id="task-description-inline" placeholder="What task needs to be done?">
+                            </div>
+                            <div class="form-group">
+                                <label>Time (Optional)</label>
+                                <input type="time" id="task-time-inline">
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="task-repeat-inline">
+                                    <span>Repeat every X days</span>
+                                </label>
+                            </div>
+                            <div class="form-group" id="task-repeat-days-group" style="display:none;">
+                                <label>Repeat every (days)</label>
+                                <input type="number" id="task-repeat-days-inline" value="7" min="1">
+                            </div>
+                            <button class="btn primary" onclick="saveInlineEntry('task')">Add Task</button>
+                            
+                            <div class="active-entries-section">
+                                <h3 class="active-entries-title">Active Now</h3>
+                                <div class="active-entries-list" id="active-tasks-list"></div>
+                            </div>
+                        </div>
+
+                        <div class="entries-form" id="chore-form">
+                            <div class="form-group">
+                                <label>Date</label>
+                                <input type="date" id="chore-date-inline">
+                            </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                <input type="text" id="chore-description-inline" placeholder="What chore needs to be done?">
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="chore-timer-inline">
+                                    <span>Include Timer</span>
+                                </label>
+                            </div>
+                            <div class="form-group" id="timer-duration-inline-group" style="display:none;">
+                                <label>Duration (minutes)</label>
+                                <input type="number" id="chore-duration-inline" value="15">
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="chore-repeat-inline">
+                                    <span>Repeat every X days</span>
+                                </label>
+                            </div>
+                            <div class="form-group" id="chore-repeat-days-group" style="display:none;">
+                                <label>Repeat every (days)</label>
+                                <input type="number" id="chore-repeat-days-inline" value="7" min="1">
+                            </div>
+                            <button class="btn primary" onclick="saveInlineEntry('chore')">Add Chore</button>
+                            
+                            <div class="active-entries-section">
+                                <h3 class="active-entries-title">Active Now</h3>
+                                <div class="active-entries-list" id="active-chores-list"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GOALS SECTION -->
+                <div class="subsection" id="goals-section">
+                    <div class="section-header">
+                        <button class="hamburger-btn" id="hamburger-btn-goals">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="3" y1="12" x2="21" y2="12"></line>
+                                <line x1="3" y1="6" x2="21" y2="6"></line>
+                                <line x1="3" y1="18" x2="21" y2="18"></line>
+                            </svg>
+                        </button>
+                        <h1 class="section-title">Goals</h1>
+                        <div class="header-spacer"></div>
+                    </div>
+                    <div class="goals-list" id="goals-list"></div>
+                    <button class="fab" id="add-goal-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- BOTTOM NAVIGATION -->
+                <nav class="nav-bar">
+                    <button class="nav-item active" data-section="calendar-section">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                        <span>Calendar</span>
+                    </button>
+                    <button class="nav-item" data-section="health-section">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                        </svg>
+                        <span>Health</span>
+                    </button>
+                    <button class="nav-item" data-section="accounting-section">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="6" x2="12" y2="12"></line>
+                            <line x1="12" y1="12" x2="16" y2="14"></line>
+                        </svg>
+                        <span>Money</span>
+                    </button>
+                    <button class="nav-item" data-section="entries-section">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9 11 12 14 22 4"></polyline>
+                            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                        </svg>
+                        <span>Entries</span>
+                    </button>
+                    <button class="nav-item" data-section="goals-section">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                        <span>Goals</span>
+                    </button>
+                </nav>
+            </section>
+        </div>
+    </div>
+
+    <!-- MODALS -->
+    <div class="modal" id="health-settings-modal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Health Settings</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group"><label>Initial Weight (kg)</label><input type="number" id="initial-weight" step="0.1"></div>
+                <div class="form-group"><label>Weight Goal (kg)</label><input type="number" id="weight-goal" step="0.1"></div>
+                <div class="form-group"><label>Protein (g/day)</label><input type="number" id="protein-goal"></div>
+                <div class="form-group"><label>Carbs (g/day)</label><input type="number" id="carbs-goal"></div>
+                <div class="form-group"><label>Fat (g/day)</label><input type="number" id="fat-goal"></div>
+                <div class="form-group"><label>Sugar (g/day)</label><input type="number" id="sugar-goal"></div>
+                <div class="form-group"><label>Saturated Fat (g/day)</label><input type="number" id="satfat-goal"></div>
+                <div class="form-group"><label>Calories (/day)</label><input type="number" id="calories-goal"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn secondary" data-action="cancel">Cancel</button>
+                <button class="btn primary" data-action="save-health">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="meal-modal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header"><h2>Add Meal</h2><button class="close-btn">&times;</button></div>
+            <div class="modal-body">
+                <div class="form-group"><label>Description</label><input type="text" id="meal-description"></div>
+                <div class="form-row">
+                    <div class="form-group"><label>Protein (g)</label><input type="number" id="meal-protein"></div>
+                    <div class="form-group"><label>Carbs (g)</label><input type="number" id="meal-carbs"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Fat (g)</label><input type="number" id="meal-fat"></div>
+                    <div class="form-group"><label>Sugar (g)</label><input type="number" id="meal-sugar"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Sat Fat (g)</label><input type="number" id="meal-satfat"></div>
+                    <div class="form-group"><label>Calories</label><input type="number" id="meal-calories"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn secondary" data-action="cancel">Cancel</button>
+                <button class="btn primary" data-action="save-meal">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="exercise-modal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header"><h2>Add Exercise</h2><button class="close-btn">&times;</button></div>
+            <div class="modal-body">
+                <div class="form-group"><label>Description</label><input type="text" id="exercise-description"></div>
+                <div class="form-group"><label>Calories Burned</label><input type="number" id="exercise-calories"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn secondary" data-action="cancel">Cancel</button>
+                <button class="btn primary" data-action="save-exercise">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="accounting-entry-modal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="tab-buttons">
+                    <button class="tab-btn" data-type="income">Income</button>
+                    <button class="tab-btn active" data-type="expense">Expense</button>
+                    <button class="tab-btn" data-type="transfer">Transfer</button>
+                    <button class="tab-btn" data-type="debt">Debt</button>
+                </div>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="tab-content" id="income-form" style="display:none;">
+                    <div class="form-group"><label>Date</label><input type="date" id="income-date"></div>
+                    <div class="form-group"><label>Amount</label><input type="number" id="income-amount" step="0.01"></div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <div class="category-select-container">
+                            <select id="income-category">
+                                <option>Salary</option>
+                                <option>Freelance</option>
+                                <option>Investment</option>
+                                <option>Other</option>
+                            </select>
+                            <button class="add-category-btn" onclick="addCustomCategory('income')">+</button>
+                            <button class="delete-category-btn" onclick="deleteCustomCategory('income')">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group"><label>Account</label><select id="income-account"><option>Cash</option><option>Debit Card</option><option>Credit Card</option></select></div>
+                    <div class="form-group"><label>Notes</label><input type="text" id="income-notes"></div>
+                </div>
+                <div class="tab-content" id="expense-form">
+                    <div class="form-group"><label>Date</label><input type="date" id="expense-date"></div>
+                    <div class="form-group"><label>Amount</label><input type="number" id="expense-amount" step="0.01"></div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <div class="category-select-container">
+                            <select id="expense-category">
+                                <option>Food</option>
+                                <option>Transport</option>
+                                <option>Entertainment</option>
+                                <option>Bills</option>
+                                <option>Shopping</option>
+                                <option>Other</option>
+                            </select>
+                            <button class="add-category-btn" onclick="addCustomCategory('expense')">+</button>
+                            <button class="delete-category-btn" onclick="deleteCustomCategory('expense')">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group"><label>Account</label><select id="expense-account"><option>Cash</option><option>Debit Card</option><option>Credit Card</option></select></div>
+                    <div class="form-group"><label>Notes</label><input type="text" id="expense-notes"></div>
+                </div>
+                <div class="tab-content" id="transfer-form" style="display:none;">
+                    <div class="form-group"><label>Date</label><input type="date" id="transfer-date"></div>
+                    <div class="form-group"><label>Amount</label><input type="number" id="transfer-amount" step="0.01"></div>
+                    <div class="form-group"><label>From</label><select id="transfer-from"><option>Cash</option><option>Debit Card</option><option>Credit Card</option></select></div>
+                    <div class="form-group"><label>To</label><select id="transfer-to"><option>Cash</option><option>Debit Card</option><option>Credit Card</option></select></div>
+                    <div class="form-group"><label>Notes</label><input type="text" id="transfer-notes"></div>
+                </div>
+                <div class="tab-content" id="debt-form" style="display:none;">
+                    <div class="form-group"><label>Date</label><input type="date" id="debt-date"></div>
+                    <div class="form-group"><label>Amount</label><input type="number" id="debt-amount" step="0.01"></div>
+                    <div class="form-group"><label>Category</label><input type="text" id="debt-category" placeholder="e.g., Credit Card, Loan"></div>
+                    <div class="form-group"><label>Notes</label><input type="text" id="debt-notes"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn secondary" data-action="cancel">Cancel</button>
+                <button class="btn secondary" data-action="continue-entry">Continue</button>
+                <button class="btn primary" data-action="save-entry">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="goal-modal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header"><h2>Add Goal</h2><button class="close-btn">&times;</button></div>
+            <div class="modal-body">
+                <div class="form-group"><label>Goal Name</label><input type="text" id="goal-name"></div>
+                <div class="form-group"><label>Description</label><textarea id="goal-description"></textarea></div>
+                <div class="form-group"><label>Start Date</label><input type="date" id="goal-start-date"></div>
+                <div class="form-group"><label>Start Time</label><input type="time" id="goal-start-time"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn secondary" data-action="cancel">Cancel</button>
+                <button class="btn primary" data-action="save-goal">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="note-modal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content note-modal-content">
+            <div class="modal-header">
+                <button class="btn secondary" id="back-to-notes">Cancel</button>
+                <button class="btn primary" id="save-note-btn">Done</button>
+            </div>
+            <div class="modal-body note-editor">
+                <input type="text" id="note-title" placeholder="Title" class="note-title-input">
+                <textarea id="note-content" placeholder="Start typing..." class="note-content-textarea"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- Photo Viewer Modal -->
+    <div class="modal photo-viewer-modal" id="photo-viewer-modal">
+        <div class="photo-viewer-header">
+            <button class="photo-viewer-close" id="photo-viewer-close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <button class="photo-viewer-delete" id="photo-viewer-delete">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="3 6 5 6 21 6"></polyline>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                </svg>
+            </button>
+        </div>
+        <div class="photo-viewer-container" id="photo-viewer-container">
+            <img id="photo-viewer-img" src="" alt="">
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
